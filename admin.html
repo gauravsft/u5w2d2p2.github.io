@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce - 1 </title>
+    <style>
+        body {
+            margin: 0%;
+            padding: 0%;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        #adminInput {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            height: auto;
+            width: 22%;
+            margin: auto;
+            margin-top: 2%;
+        }
+
+        #adminInput>input {
+            margin-top: 2%;
+            font-size: 100%;
+        }
+
+        #adminInput>select {
+            margin-top: 2%;
+            font-size: 100%;
+        }
+
+        #add {
+            background-color: black;
+            color: white;
+        }
+
+        /* //navbar */
+        .navbar{
+            display: flex;
+            background-color: green;
+            height: 70px;
+            width: 100%;
+            justify-content: space-around;
+        }
+        .navbar>div{
+          
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div>
+            <a href="#" style="color: black;text-decoration: none;">Home</a>
+            
+        </div>
+        <div>
+            <a href="products.html" style="color: black;text-decoration: none;">Products</a>
+        </div>
+    </div>
+
+    <form action="" id="adminInput">
+        <input type="text" id="name" placeholder="Enter Product Name" required>
+        <input type="text" id="category" placeholder="Enter category" required>
+        <input type="text" id="image" placeholder="Enter Image_URL" required>
+        <input type="number" id="price" placeholder="Enter Price" required>
+        <select name="gender" id="gender">
+            <option value="male">Male</option>
+            <option value="femele">Femele</option>
+        </select>
+        <select name="sold" id="sold">
+            <option value="false">false</option>
+            <option value="True">True</option>
+        </select>
+        <input type="submit" id="add" value="SUBMIT" required>
+    </form>
+
+</body>
+<script>
+    function User(productName, category, imageUrl, price, gender, sold = false) {
+        this.productName = productName;
+        this.category = category;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.gender = gender;
+        this.sold = sold;
+    }
+
+
+
+    document.querySelector("form").addEventListener("submit", givenValueByUser);
+
+
+
+
+    function givenValueByUser() {
+        event.preventDefault();
+        var cartData;
+
+        if (localStorage.getItem('Products') === null) {
+            cartData = [];
+        } else {
+            cartData = JSON.parse(localStorage.getItem('Products'));
+        }
+        var productName = document.getElementById("name").value;
+        var category = document.getElementById("category").value;
+        var imageUrl = document.getElementById("image").value;
+        var price = document.getElementById("price").value;
+        var gender = document.getElementById("gender").value;
+        var sold = document.getElementById("sold").value;
+        var user = new User(productName, category, imageUrl, price, gender, sold);
+        console.log(user)
+        cartData.push(user);
+        console.log(cartData)
+        localStorage.setItem("Products", JSON.stringify(cartData));
+    }
+</script>
+
+</html>
